@@ -1,4 +1,4 @@
-const TicketPage = ({ params }) => {
+const TicketPage = ({ params }: any) => {
   return <div>TicketPage {params.id}</div>;
 };
 
