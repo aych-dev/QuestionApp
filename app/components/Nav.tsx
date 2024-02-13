@@ -1,5 +1,14 @@
+import Link from 'next/link';
+
 const Nav = () => {
-  return <div>Nav</div>;
+  return (
+    <nav>
+      <div>
+        <Link href={'/'}>HOME</Link>
+        <Link href={'/TicketPage/new'}>NEW</Link>
+      </div>
+    </nav>
+  );
 };
 
 export default Nav;
