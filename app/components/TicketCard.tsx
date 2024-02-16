@@ -7,15 +7,24 @@ const TicketCard = () => {
   return (
     <div className='flex flex-col bg-blue-400 hover:bg-blue-200 rounded-md shadow-lg p-3 m-2'>
       <div className='flex mb-3'>
-        <div className='ml-2'>
-          <PriorityDisplay />
-        </div>
+        <PriorityDisplay />
         <div className='ml-auto'>
           <DeleteBlock />
         </div>
       </div>
-      <ProgressDisplay />
-      <StatusDisplay />
+      <h4>Ticket Title</h4>
+      <hr className='h-px border-0 bg-orange-400 mb-2' />
+      <p className='whitespace-pre-wrap'>The Description! Do not TOUCH! </p>
+      <div className='flex-grow'></div>
+      <div className='flex mt-2'>
+        <div className='flex flex-col'>
+          <p className='text-xs my-1'>2/16/23 10:00AM</p>
+          <ProgressDisplay />
+        </div>
+        <div className='ml-auto flex items-end'>
+          <StatusDisplay />
+        </div>
+      </div>
     </div>
   );
 };
