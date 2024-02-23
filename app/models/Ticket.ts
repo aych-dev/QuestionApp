@@ -1,12 +1,13 @@
 import mongoose, { Schema } from 'mongoose';
 
-const uri = process.env.MONGODUB_URI;
+const uri = process.env.MONGODB_URI;
 
 if (!uri) {
   console.error('uri is undefined');
+  process.exit(1);
 }
 
-mongoose.connect('uri');
+mongoose.connect(uri);
 mongoose.Promise = global.Promise;
 
 const ticketSchema = new Schema(
