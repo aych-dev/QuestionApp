@@ -3,11 +3,26 @@ import PriorityDisplay from './PriorityDisplay';
 import ProgressDisplay from './ProgressDisplay';
 import StatusDisplay from './StatusDisplay';
 
-const TicketCard = () => {
+export interface CategoryTypes {
+  title: string;
+  description: string;
+  category: string;
+  priority: number;
+  progress: number;
+  status: string;
+  active: boolean;
+}
+
+interface Props {
+  ticket: CategoryTypes;
+  id: number;
+}
+
+const TicketCard = ({ ticket }: Props) => {
   return (
     <div className='flex flex-col bg-blue-400 hover:bg-blue-200 rounded-md shadow-lg p-3 m-2'>
       <div className='flex mb-3'>
-        <PriorityDisplay />
+        <PriorityDisplay priority={ticket.priority} />
         <div className='ml-auto'>
           <DeleteBlock />
         </div>

@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import TicketCard from './components/TicketCard';
+import { CategoryTypes } from './components/TicketCard';
 
 const getTickets = async () => {
   try {
@@ -12,16 +13,6 @@ const getTickets = async () => {
     console.log('failed to get tickets', error);
   }
 };
-
-interface CategoryTypes {
-  _id: string;
-  title: string;
-  category: string;
-  priority: number;
-  progress: number;
-  status: string;
-  active: boolean;
-}
 
 const Dashboard = async () => {
   const { tickets } = await getTickets();
@@ -44,7 +35,7 @@ const Dashboard = async () => {
                       (ticket: CategoryTypes) =>
                         ticket.category === uniqueCategory
                     )
-                    .map((filteredTicket: string, _index: number) => {
+                    .map((filteredTicket: CategoryTypes, _index: number) => {
                       return (
                         <TicketCard
                           id={_index}
