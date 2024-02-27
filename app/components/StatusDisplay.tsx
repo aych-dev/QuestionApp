@@ -3,15 +3,27 @@ interface Props {
 }
 
 const StatusDisplay = ({ status }: Props) => {
-  const getColor = {
-    color: 'bg-slate-700',
-    done: 'bg-green-200',
-    started: 'bg-yellow-200',
-    notStarted: 'bg-red-200',
+  const getColor = (status: string) => {
+    let color = 'bg-slate-700';
+    if (status === 'done') {
+      color = 'bg-green-200';
+      return color;
+    } else if (status === 'started') {
+      color = 'bg-yellow-200';
+      return color;
+    } else if (status === 'not started') {
+      color = 'bg-red-200';
+      return color;
+    }
+    return color;
   };
 
   return (
-    <span className='inline-block rounded-full px-2 py-1 text-xs font-semibold text-white bg-slate-700'>
+    <span
+      className={`inline-block rounded-full px-2 py-1 text-xs font-semibold text-white ${getColor(
+        status
+      )} `}
+    >
       {status}
     </span>
   );
