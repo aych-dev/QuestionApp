@@ -2,8 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { CategoryTypes } from './TicketCard';
 
-const TicketForm = () => {
+interface Props {
+  ticket: CategoryTypes;
+}
+
+const TicketForm = ({ ticket }: Props) => {
+  const EDITMMODE = ticket._id === 'new' ? false : true;
   const router = useRouter();
   const startingTicketData = {
     title: '',
@@ -13,6 +19,15 @@ const TicketForm = () => {
     status: 'not started',
     category: 'Hardware Problem',
   };
+
+  if (EDITMMODE) {
+    startingTicketData['title'] = ticket.title;
+    startingTicketData['description'] = ticket.description;
+    startingTicketData['priority'] = ticket.priority;
+    startingTicketData['progress'] = ticket.progress;
+    startingTicketData['status'] = ticket.status;
+    startingTicketData['category'] = ticket.category;
+  }
 
   const [formData, setFormData] = useState(startingTicketData);
 

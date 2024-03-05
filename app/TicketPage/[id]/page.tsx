@@ -1,3 +1,4 @@
+import { CategoryTypes } from '@/app/components/TicketCard';
 import TicketForm from '@/app/components/TicketForm';
 
 const getTicketById = async (id: string) => {
@@ -14,14 +15,26 @@ const getTicketById = async (id: string) => {
 const TicketPage = async ({ params }: any) => {
   const EDITMODE = params.id === 'new' ? false : true;
 
-  let updateTicketData = {};
+  let updateTicketData: CategoryTypes;
 
   if (EDITMODE) {
     updateTicketData = await getTicketById(params.id);
+  } else {
+    updateTicketData = {
+      _id: 'new',
+      title: '',
+      description: '',
+      category: '',
+      priority: 0,
+      progress: 0,
+      status: '',
+      active: false,
+      createdAt: new Date(),
+    };
     console.log(updateTicketData);
   }
 
-  return <TicketForm />;
+  return <TicketForm ticket={updateTicketData} />;
 };
 
 export default TicketPage;
