@@ -9,10 +9,6 @@ interface Props {
 }
 
 const TicketForm = ({ ticket }: Props) => {
-  if (ticket === undefined) {
-    return;
-  }
-  const EDITMMODE = ticket._id === 'new' ? false : true;
   const router = useRouter();
   const startingTicketData = {
     title: '',
@@ -23,6 +19,12 @@ const TicketForm = ({ ticket }: Props) => {
     category: 'Hardware Problem',
   };
 
+  const [formData, setFormData] = useState(startingTicketData);
+  if (ticket === undefined) {
+    return null;
+  }
+  const EDITMMODE = ticket._id === 'new' ? false : true;
+
   if (EDITMMODE) {
     startingTicketData['title'] = ticket.title;
     startingTicketData['description'] = ticket.description;
@@ -31,8 +33,6 @@ const TicketForm = ({ ticket }: Props) => {
     startingTicketData['status'] = ticket.status;
     startingTicketData['category'] = ticket.category;
   }
-
-  const [formData, setFormData] = useState(startingTicketData);
 
   const handleChange = (e: any) => {
     const value = e.target.value;
