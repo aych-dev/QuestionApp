@@ -46,18 +46,36 @@ const TicketForm = ({ ticket }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch('/api/Tickets', {
-      method: 'POST',
-      body: JSON.stringify({ formData }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!res.ok) {
-      throw new Error('Failed to create ticket');
+    try {
+      if (EDITMMODE) {
+        const res = await fetch(`/api/Tickets/${ticket._id}`, {
+          method: 'PUT',
+          body: JSON.stringify({ formData }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Failed To Update Ticket');
+        }
+      } else {
+        const res = await fetch('/api/Tickets', {
+          method: 'POST',
+          body: JSON.stringify({ formData }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Failed to create ticket');
+        }
+      }
+
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      console.error('Form submission error:', error);
     }
-    router.refresh();
-    router.push('/');
   };
 
   return (
@@ -67,7 +85,7 @@ const TicketForm = ({ ticket }: Props) => {
         method='post'
         onSubmit={handleSubmit}
       >
-        <h3>Create Your Ticket</h3>
+        <h3>{EDITMMODE ? 'Update Your Ticket' : 'Create A Ticket'}</h3>
         <label>Title</label>
         <input
           id='title'
@@ -147,7 +165,7 @@ const TicketForm = ({ ticket }: Props) => {
         <input
           type='submit'
           className='btn border cursor-pointer'
-          value='Create Ticket'
+          value={EDITMMODE ? 'Update Your Ticket' : 'Create Ticket'}
         />
       </form>
     </div>
