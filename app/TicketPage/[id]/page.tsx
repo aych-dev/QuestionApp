@@ -15,10 +15,17 @@ const getTicketById = async (id: string) => {
 const TicketPage = async ({ params }: any) => {
   const EDITMODE = params.id === 'new' ? false : true;
 
-  let updateTicketData: CategoryTypes;
+  let updateTicketData!: CategoryTypes | undefined;
 
   if (EDITMODE) {
     updateTicketData = await getTicketById(params.id);
+    if (updateTicketData !== undefined) {
+      updateTicketData = updateTicketData.foundTicket;
+    } else {
+      return;
+    }
+
+    console.log(updateTicketData);
   } else {
     updateTicketData = {
       _id: 'new',
@@ -31,7 +38,6 @@ const TicketPage = async ({ params }: any) => {
       active: false,
       createdAt: new Date(),
     };
-    console.log(updateTicketData);
   }
 
   return <TicketForm ticket={updateTicketData} />;

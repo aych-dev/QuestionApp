@@ -5,6 +5,17 @@ import StatusDisplay from './StatusDisplay';
 import Link from 'next/link';
 
 export interface CategoryTypes {
+  foundTicket?: {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    priority: number;
+    progress: number;
+    status: string;
+    active: boolean;
+    createdAt: Date;
+  };
   _id: string;
   title: string;
   description: string;
@@ -17,12 +28,12 @@ export interface CategoryTypes {
 }
 
 interface Props {
-  ticket: CategoryTypes;
+  ticket?: CategoryTypes;
   id: number;
 }
 
 const TicketCard = ({ ticket }: Props) => {
-  const formatTimeStamp = (timestamp: Date) => {
+  const formatTimeStamp = (timestamp: Date | undefined) => {
     const options: Object = {
       year: 'numeric',
       month: '2-digit',
@@ -31,7 +42,9 @@ const TicketCard = ({ ticket }: Props) => {
       minute: '2-digit',
       hour12: true,
     };
-
+    if (timestamp === undefined) {
+      return;
+    }
     const date = new Date(timestamp);
     const formattedDate = date.toLocaleString('en-US', options);
 
@@ -41,23 +54,23 @@ const TicketCard = ({ ticket }: Props) => {
   return (
     <div className='flex flex-col bg-blue-400 hover:bg-blue-200 rounded-md shadow-lg p-3 m-2'>
       <div className='flex mb-3'>
-        <PriorityDisplay priority={ticket.priority} />
+        <PriorityDisplay priority={ticket?.priority} />
         <div className='ml-auto'>
-          <DeleteBlock id={ticket._id} />
+          <DeleteBlock id={ticket?._id} />
         </div>
       </div>
-      <Link href={`/TicketPage/${ticket._id}`} style={{ display: 'contents' }}>
-        <h4>{ticket.title}</h4>
+      <Link href={`/TicketPage/${ticket?._id}`} style={{ display: 'contents' }}>
+        <h4>{ticket?.title}</h4>
         <hr className='h-px border-0 bg-orange-400 mb-2' />
-        <p className='whitespace-pre-wrap'>{ticket.description} </p>
+        <p className='whitespace-pre-wrap'>{ticket?.description} </p>
         <div className='flex-grow'></div>
         <div className='flex mt-2'>
           <div className='flex flex-col'>
-            <p className='text-xs my-1'>{formatTimeStamp(ticket.createdAt)}</p>
-            <ProgressDisplay progress={ticket.progress} />
+            <p className='text-xs my-1'>{formatTimeStamp(ticket?.createdAt)}</p>
+            <ProgressDisplay progress={ticket?.progress} />
           </div>
           <div className='ml-auto flex items-end'>
-            <StatusDisplay status={ticket.status} />
+            <StatusDisplay status={ticket?.status} />
           </div>
         </div>
       </Link>

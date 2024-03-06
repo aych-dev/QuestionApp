@@ -5,10 +5,13 @@ import React, { useState } from 'react';
 import { CategoryTypes } from './TicketCard';
 
 interface Props {
-  ticket: CategoryTypes;
+  ticket: CategoryTypes | undefined;
 }
 
 const TicketForm = ({ ticket }: Props) => {
+  if (ticket === undefined) {
+    return;
+  }
   const EDITMMODE = ticket._id === 'new' ? false : true;
   const router = useRouter();
   const startingTicketData = {

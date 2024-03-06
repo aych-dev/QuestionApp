@@ -1,5 +1,5 @@
 interface Props {
-  progress: number;
+  progress: number | undefined;
 }
 
 const ProgressDisplay = ({ progress }: Props) => {

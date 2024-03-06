@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 interface Props {
-  id: string;
+  id: string | undefined;
 }
 
 const DeleteBlock = ({ id }: Props) => {

@@ -1,5 +1,7 @@
+import { stat } from 'fs';
+
 interface Props {
-  status: string;
+  status: string | undefined;
 }
 
 const StatusDisplay = ({ status }: Props) => {
@@ -17,6 +19,10 @@ const StatusDisplay = ({ status }: Props) => {
     }
     return color;
   };
+
+  if (status === undefined) {
+    return;
+  }
 
   return (
     <span
