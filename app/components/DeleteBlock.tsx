@@ -10,8 +10,9 @@ const DeleteBlock = ({ id }: Props) => {
   const router = useRouter();
 
   const deleteTicket = async () => {
+    const apiUrl = process.env.API_URL;
     try {
-      const res = await fetch(`http://localhost:3000/api/Tickets/${id}`, {
+      const res = await fetch(`${apiUrl}/api/Tickets/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) {

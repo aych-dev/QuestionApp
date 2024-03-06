@@ -1,5 +1,3 @@
-import { stat } from 'fs';
-
 interface Props {
   status: string | undefined;
 }
